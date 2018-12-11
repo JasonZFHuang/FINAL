@@ -69,7 +69,12 @@ const fetchLocation = (location) => {
       if (error) {
         reject(error)
       }
-      resolve([body.results[0].geometry.location.lat, body.results[0].geometry.location.lng])
+      try {
+        resolve([body.results[0].geometry.location.lat, body.results[0].geometry.location.lng])
+      }
+      catch {
+        reject()
+      }
     })
   })
 
@@ -108,9 +113,9 @@ app.post('/searchWeather', (req, res) => {
     .then(val => {
       fetchImg(val.icon + ' icon')
         .then(img => {
-          console.log(val)
+          //console.log(val)
           icon = img[0] || 'cloudy.png'
-          console.log(icon)
+          //console.log(icon)
           res.render('weather.hbs', {
             stats: val,
             icon: icon
