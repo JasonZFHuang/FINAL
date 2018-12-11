@@ -34,7 +34,7 @@ const fetchImg = (keyword) => {
       if (error) {
         reject(error)
       }
-      resolve(body.hits.map(el => el.previewURL))
+      resolve(body.hits)
     })
   })
 
@@ -98,9 +98,12 @@ app.get('/weather', (req, res) => {
 app.post('/searchImg', (req, res) => {
   let keyword = req.body.search
   fetchImg(keyword)
-    .then(val => res.render("fetch.hbs", {
-      images: val
-    }))
+    .then(val => {
+      let images = val.map(el => el.previewURL)
+      res.render("fetch.hbs", {
+        images: images
+      })
+    })
     .catch(val => res.render("fetch.hbs"))
 })
 
@@ -114,7 +117,12 @@ app.post('/searchWeather', (req, res) => {
       fetchImg(val.icon + ' icon')
         .then(img => {
           //console.log(val)
-          icon = img[0] || 'cloudy.png'
+          try {
+            var icon = img[0].previewURL
+          } catch {
+            var icon = "cloudy.png"
+          }
+
           //console.log(icon)
           res.render('weather.hbs', {
             stats: val,
