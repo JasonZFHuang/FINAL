@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Weather Info</h1>
+    <form action="/searchWeather" method="POST">
+        <H1>Search Weather</H1>
+        <br>
+        <input type="text" name="search" placeholder="Enter location here">
+        <input type="submit" value="Search">
+    </form>
+    <br>
+    <a href="/">Back to index</a>
+    {{#if stats}}
+    <H1>Weather Stats</H1>
+    <h2>Summary {{stats.summary}}</h2>
+    <h2>Humidity {{stats.humidity}}</h2>
+    <h2>Temperature {{stats.temperature}}</h2>
+    <img src={{icon}}>
+    {{/if}}
+
+
+</body>
+
+</html>
