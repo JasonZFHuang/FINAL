@@ -109,9 +109,11 @@ app.post('/searchWeather', (req, res) => {
       fetchImg(val.icon + ' icon')
         .then(img => {
           console.log(val)
+          icon = img[0] || 'cloudy.png'
+          console.log(icon)
           res.render('weather.hbs', {
             stats: val,
-            icon: img[0]
+            icon: icon
           })
         })
     })
